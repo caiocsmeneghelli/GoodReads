@@ -1,4 +1,6 @@
-﻿using GoodReads.Application.UpdateBook;
+﻿using GoodReads.Application.Commands.UpdateBook;
+using GoodReads.Application.Queries.GetAllBooks;
+using GoodReads.Application.Queries.GetBookById;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +13,26 @@ namespace GoodReads.Api.Controllers
     public class BookController : ControllerBase
     {
         private readonly IMediator _mediator;
+
+        [HttpGet("{idBook}")]
+        public async Task<IActionResult> GetById(int idBook)
+        {
+            var query = new GetBookByIdQuery(idBook);
+            var book = await _mediator.Send(query);
+            if (book == null) { return NotFound(); }
+
+            return Ok(book);
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetAll()
+        {
+            var query = new GetAllBooksQuery();
+            var books = await _mediator.Send(query);
+            
+            return Ok(books);
+        }
+
 
         [HttpPut("{idBook}")]
         public async Task<IActionResult> Update([FromRoute]int idBook, [FromBody]UpdateBookCommand command)
