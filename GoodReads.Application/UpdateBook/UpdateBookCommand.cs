@@ -10,6 +10,7 @@ namespace GoodReads.Application.UpdateBook
 {
     public class UpdateBookCommand : IRequest<Result>
     {
+        public int IdBook { get; set; }
         public string Description { get; set; }
         public Genre Genre { get; set; }
     }
