@@ -1,4 +1,5 @@
-﻿using GoodReads.Application.Commands.UpdateBook;
+﻿using GoodReads.Application.Commands.DeleteBook;
+using GoodReads.Application.Commands.UpdateBook;
 using GoodReads.Application.Queries.GetAllBooks;
 using GoodReads.Application.Queries.GetBookById;
 using MediatR;
@@ -47,6 +48,20 @@ namespace GoodReads.Api.Controllers
             if(result.StatusCode == HttpStatusCode.BadRequest)
             {
                 return BadRequest(result.Errors);
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var command = new DeleteBookCommand(id);
+            var result = await _mediator.Send(command);
+
+            if(result.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound(result.Errors);
             }
 
             return NoContent();

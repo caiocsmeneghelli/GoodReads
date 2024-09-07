@@ -32,6 +32,18 @@ namespace GoodReads.Application
             };
         }
 
+        public static Result NotFound(string error)
+        {
+            var listError = new List<string>();
+            listError.Add(error);
+            return new Result()
+            {
+                IsSuccess = false,
+                StatusCode = HttpStatusCode.NotFound,
+                Errors = listError
+            };
+        }
+
         // new 
         public static Result BadRequest(object value, List<string> errors) => new Result { Value = value, IsSuccess = false, Errors = errors, StatusCode = HttpStatusCode.BadRequest };
 
