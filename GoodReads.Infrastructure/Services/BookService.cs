@@ -1,29 +1,40 @@
 ﻿using GoodReads.Core.DTOs;
 using GoodReads.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Nodes;
 
 namespace GoodReads.Infrastructure.Services
 {
     internal class BookService : IBookService
     {
-        private readonly string _baseUri = "http://viacep.com.br/ws/{0}/json";
+        private readonly string _baseUri = "http://openlibrary.org/api/books?bibkeys=ISBN:{0}&jscmd=details&format=json";
         public async Task<BookDto?> SearchBookByISBN(string ISBN)
         {
-            HttpClient httpClient = new HttpClient();
-            var url = string.Format(_baseUri, ISBN);
-            httpClient.BaseAddress = new Uri(url);
-
-            HttpResponseMessage response = httpClient.GetAsync("").Result;
-            if (response.IsSuccessStatusCode)
+            using (HttpClient httpClient = new HttpClient())
             {
-                BookDto parseObject = response.Content.ReadFromJsonAsync<BookDto>().Result;
-                return parseObject;
+                var url = string.Format(_baseUri, ISBN);
+
+                HttpResponseMessage response = await httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    var dto = new BookDto();
+
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    JsonObject json = JsonNode.Parse(responseData).AsObject();
+
+                    string isbnObject = $"ISBN:{ISBN}";
+                    var bookDetails = json[isbnObject]?["details"];
+                    var authors = bookDetails?["authors"]?.AsArray();
+
+                    if(authors != null)
+                    {
+                        var author = authors[0]?["name"].ToString();
+                        dto.Author = author;
+                    }
+
+                    return dto;
+
+                }
             }
 
             return null;

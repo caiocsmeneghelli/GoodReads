@@ -1,4 +1,5 @@
-﻿using GoodReads.Application.Commands.DeleteBook;
+﻿using GoodReads.Application.Commands.AddBook;
+using GoodReads.Application.Commands.DeleteBook;
 using GoodReads.Application.Commands.UpdateBook;
 using GoodReads.Application.Queries.GetAllBooks;
 using GoodReads.Application.Queries.GetBookById;
@@ -14,6 +15,18 @@ namespace GoodReads.Api.Controllers
     public class BookController : ControllerBase
     {
         private readonly IMediator _mediator;
+
+        [HttpPost]
+        public async Task<IActionResult> Create(AddBookCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Errors);
+        }
 
         [HttpGet("{idBook}")]
         public async Task<IActionResult> GetById(int idBook)
