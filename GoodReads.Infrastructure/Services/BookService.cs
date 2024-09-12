@@ -4,7 +4,7 @@ using System.Text.Json.Nodes;
 
 namespace GoodReads.Infrastructure.Services
 {
-    internal class BookService : IBookService
+    public class BookService : IBookService
     {
         private readonly string _baseUri = "http://openlibrary.org/api/books?bibkeys=ISBN:{0}&jscmd=details&format=json";
         public async Task<BookDto?> SearchBookByISBN(string ISBN)

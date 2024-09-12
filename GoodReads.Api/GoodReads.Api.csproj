@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GoodReads.Application\GoodReads.Application.csproj" />
+    <ProjectReference Include="..\GoodReads.Infrastructure\GoodReads.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
