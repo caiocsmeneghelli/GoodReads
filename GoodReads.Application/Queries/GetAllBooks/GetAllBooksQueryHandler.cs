@@ -14,7 +14,7 @@ namespace GoodReads.Application.Queries.GetAllBooks
         private readonly IUnitOfWork _unitOfWork;
         public async Task<List<BookViewModel>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.BookRepository.GetAllAsync();
+            var result = await _unitOfWork.Books.GetAllAsync();
             return result.Select(reg => new BookViewModel(reg)).ToList();
         }
     }

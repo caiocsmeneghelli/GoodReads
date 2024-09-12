@@ -16,6 +16,11 @@ namespace GoodReads.Api.Controllers
     {
         private readonly IMediator _mediator;
 
+        public BookController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(AddBookCommand command)
         {

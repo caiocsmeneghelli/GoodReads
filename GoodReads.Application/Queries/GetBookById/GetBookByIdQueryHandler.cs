@@ -20,7 +20,7 @@ namespace GoodReads.Application.Queries.GetBookById
 
         public async Task<Book?> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.BookRepository.GetByIdAsync(request.IdBook);
+            return await _unitOfWork.Books.GetByIdAsync(request.IdBook);
         }
     }
 }

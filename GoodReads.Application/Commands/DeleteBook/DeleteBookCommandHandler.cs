@@ -19,10 +19,10 @@ namespace GoodReads.Application.Commands.DeleteBook
 
         public async Task<Result> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
         {
-            var book = await _unitOfWork.BookRepository.GetByIdAsync(request.IdBook);
+            var book = await _unitOfWork.Books.GetByIdAsync(request.IdBook);
             if (book == null) { return Result.NotFound("Livro não encontrado."); }
 
-            await _unitOfWork.BookRepository.Delete(request.IdBook);
+            await _unitOfWork.Books.Delete(request.IdBook);
             await _unitOfWork.CommitAsync();
 
             return Result.Success(request.IdBook);

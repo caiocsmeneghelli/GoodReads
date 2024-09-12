@@ -20,7 +20,7 @@ namespace GoodReads.Application.Commands.UpdateBook
         public async Task<Result> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
         {
             List<string> errors = new List<string>();
-            var book = await _unitOfWork.BookRepository.GetByIdAsync(request.IdBook);
+            var book = await _unitOfWork.Books.GetByIdAsync(request.IdBook);
             if (book is null)
             {
                 errors.Add("Livro não encontrando.");

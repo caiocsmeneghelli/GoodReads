@@ -9,7 +9,7 @@ namespace GoodReads.Core.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IBookRepository BookRepository { get; }
+        IBookRepository Books { get; }
 
 
         Task<int> CompleteAsync();
