@@ -24,16 +24,37 @@ namespace GoodReads.Infrastructure.Services
 
                     string isbnObject = $"ISBN:{ISBN}";
                     var bookDetails = json[isbnObject]?["details"];
-                    var authors = bookDetails?["authors"]?.AsArray();
 
+                    dto.ISBN = ISBN;
+                    var title = bookDetails?["title"]?.ToString();
+                    dto.Title = title != null ? title : "";
+
+                    var authors = bookDetails?["authors"]?.AsArray();
                     if(authors != null)
                     {
+                        // Fix: Concatenar caso seja mais de um autor
                         var author = authors[0]?["name"].ToString();
                         dto.Author = author;
                     }
 
-                    return dto;
+                    var publishers = bookDetails?["publishers"]?.AsArray();
+                    if(publishers != null)
+                    {
+                        var publisher = publishers[0]?.ToString();
+                        dto.Publisher = publisher != null ? publisher : "";
+                    }
 
+                    var publishDate = bookDetails?["publish_date"]?.ToString();
+                    if(publishDate != null)
+                    {
+                        string[] dateSepareted = publishDate.Split('-');
+                        dto.YearOfPublish = int.Parse(dateSepareted[0]);
+                    }
+
+                    var qtPages = bookDetails?["number_of_pages"];
+                    dto.QuantityOfPages = qtPages != null ? (int)qtPages : 0;
+
+                    return dto;
                 }
             }
 
