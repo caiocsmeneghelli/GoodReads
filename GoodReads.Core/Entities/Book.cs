@@ -10,7 +10,7 @@ namespace GoodReads.Core.Entities
     public class Book : BaseEntity
     {
         public Book(string title, string iSBN, string author, string editor, 
-            int yearOfPublish, int quantityOfPages, byte[] bookCover)
+            int yearOfPublish, int quantityOfPages)
         {
             Title = title;
             ISBN = iSBN;
@@ -18,7 +18,6 @@ namespace GoodReads.Core.Entities
             Editor = editor;
             YearOfPublish = yearOfPublish;
             QuantityOfPages = quantityOfPages;
-            BookCover = bookCover;
         }
 
         public string Title { get; private set; }
@@ -30,12 +29,17 @@ namespace GoodReads.Core.Entities
         public int YearOfPublish { get; private set; }
         public int QuantityOfPages { get; private set; }
         public decimal AvarageScore { get; private set; }
-        public byte[] BookCover { get; private set; }
+        public byte[]? BookCover { get; private set; }
 
         public void Update(string description, Genre genre)
         {
             Description = description;
             Genre = genre;
+        }
+
+        public void UpdateBookCover(byte[] bookCover)
+        {
+           BookCover = bookCover;
         }
     }
 }

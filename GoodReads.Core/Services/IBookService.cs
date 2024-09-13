@@ -10,6 +10,6 @@ namespace GoodReads.Core.Services
     public interface IBookService
     {
         Task<BookDto?> SearchBookByISBN(string ISBN);
-        Task<byte[]?> GetBookThumbnailImage(string url);
+        Task<byte[]?> GetBookThumbnailImage(string? url);
     }
 }

@@ -1,10 +1,6 @@
-﻿using GoodReads.Core.Services;
+﻿using GoodReads.Core.Entities;
+using GoodReads.Core.Services;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoodReads.Application.Commands.AddBook
 {
@@ -22,11 +18,20 @@ namespace GoodReads.Application.Commands.AddBook
             var bookInfo = await _bookService.SearchBookByISBN(request.ISBN);
             if(bookInfo is null)
             {
-                string erro = string.Format($"Livro com o identificador {0} não encontrado.", request.ISBN);
+                string erro = $"Livro com o identificador {request.ISBN} não encontrado.";
                 List<string> errors = new List<string>();
                 errors.Add(erro);
                 return Result.BadRequest(request.ISBN, errors);
             }
+
+            var book = bookInfo.ToModel();
+            var bookCover = await _bookService.GetBookThumbnailImage(bookInfo.ThumbnailUrl);
+            if(bookCover != null)
+            {
+                book.UpdateBookCover(bookCover);
+            }
+
+            // Save book.
 
             return Result.Success(bookInfo);
         }

@@ -8,8 +8,10 @@ namespace GoodReads.Infrastructure.Services
     {
         private readonly string _baseUri = "http://openlibrary.org/api/books?bibkeys=ISBN:{0}&jscmd=details&format=json";
 
-        public async Task<byte[]?> GetBookThumbnailImage(string url)
+        public async Task<byte[]?> GetBookThumbnailImage(string? url)
         {
+            if (url == null) return null;
+
             using (HttpClient client = new HttpClient())
             {
                 // Fazendo o download da imagem
@@ -32,7 +34,6 @@ namespace GoodReads.Infrastructure.Services
                 HttpResponseMessage response = await httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-
                     var dto = new BookDto();
 
                     string responseData = await response.Content.ReadAsStringAsync();
@@ -42,15 +43,13 @@ namespace GoodReads.Infrastructure.Services
                     var bookDetails = json[isbnObject]?["details"];
 
                     dto.ISBN = ISBN;
-                    var title = bookDetails?["title"]?.ToString();
-                    dto.Title = title != null ? title : "";
+                    dto.Title = bookDetails?["title"]?.ToString();
 
                     var authors = bookDetails?["authors"]?.AsArray();
                     if (authors != null)
                     {
                         // Fix: Concatenar caso seja mais de um autor
-                        var author = authors[0]?["name"].ToString();
-                        dto.Author = author;
+                        dto.Author = authors[0]?["name"]?.ToString();
                     }
 
                     var publishers = bookDetails?["publishers"]?.AsArray();
@@ -70,8 +69,7 @@ namespace GoodReads.Infrastructure.Services
                     var qtPages = bookDetails?["number_of_pages"];
                     dto.QuantityOfPages = qtPages != null ? (int)qtPages : 0;
 
-                    var thumbnailUrl = bookDetails?["thumbnail_url"]?.ToString();
-                    dto.ThumbnailUrl = thumbnailUrl != null ? thumbnailUrl : "";
+                    dto.ThumbnailUrl = bookDetails?["thumbnail_url"]?.ToString();
 
                     return dto;
                 }
