@@ -1,3 +1,4 @@
+using GoodReads.Application;
 using GoodReads.Application.Commands.AddBook;
 using GoodReads.Core.Repositories;
 using GoodReads.Core.Services;
@@ -15,10 +16,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddApplication();
+
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(AddBookCommand).Assembly));
 
 var app = builder.Build();
 
