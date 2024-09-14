@@ -4,11 +4,11 @@ using MediatR;
 
 namespace GoodReads.Application.Commands.AddBook
 {
-    public class AddBookCommandQuery : IRequestHandler<AddBookCommand, Result>
+    public class AddBookCommandHandler : IRequestHandler<AddBookCommand, Result>
     {
         private readonly IBookService _bookService;
 
-        public AddBookCommandQuery(IBookService bookService)
+        public AddBookCommandHandler(IBookService bookService)
         {
             _bookService = bookService;
         }
