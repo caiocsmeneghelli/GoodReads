@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Application.Commands.AddBook
+namespace GoodReads.Application.Commands.Book.AddBook
 {
     public class AddBookCommandValidator : AbstractValidator<AddBookCommand>
     {
-        public AddBookCommandValidator() {
+        public AddBookCommandValidator()
+        {
             RuleFor(reg => reg.ISBN.Length).Equal(13).WithMessage("Código ISBN deve possuir 13 caracteres.");
         }
     }

@@ -1,10 +1,8 @@
-﻿using GoodReads.Application.Commands.AddBook;
-using GoodReads.Application.Commands.DeleteBook;
-using GoodReads.Application.Commands.UpdateBook;
+﻿using GoodReads.Application.Commands.Book.DeleteBook;
+using GoodReads.Application.Commands.Book.UpdateBook;
 using GoodReads.Application.Queries.GetAllBooks;
 using GoodReads.Application.Queries.GetBookById;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -15,23 +13,6 @@ namespace GoodReads.Api.Controllers
     public class BookController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public BookController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(AddBookCommand command)
-        {
-            var result = await _mediator.Send(command);
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result.Errors);
-        }
 
         [HttpGet("{idBook}")]
         public async Task<IActionResult> GetById(int idBook)

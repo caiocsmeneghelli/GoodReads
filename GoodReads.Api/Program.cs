@@ -1,11 +1,5 @@
 using GoodReads.Application;
-using GoodReads.Application.Commands.AddBook;
-using GoodReads.Core.Repositories;
-using GoodReads.Core.Services;
-using GoodReads.Core.UnitOfWork;
 using GoodReads.Infrastructure;
-using GoodReads.Infrastructure.Repositories;
-using GoodReads.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

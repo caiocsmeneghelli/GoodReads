@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Application.Commands.DeleteBook
+namespace GoodReads.Application.Commands.Book.DeleteBook
 {
     public class DeleteBookCommand : IRequest<Result>
     {

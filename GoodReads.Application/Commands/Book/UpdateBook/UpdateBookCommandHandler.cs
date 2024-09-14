@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Application.Commands.UpdateBook
+namespace GoodReads.Application.Commands.Book.UpdateBook
 {
     public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Result>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IValidator<UpdateBookCommand> _validator;
 
-        public UpdateBookCommandHandler(IUnitOfWork unitOfWork)
+        public UpdateBookCommandHandler(IUnitOfWork unitOfWork, IValidator<UpdateBookCommand> validator)
         {
             _unitOfWork = unitOfWork;
+            _validator = validator;
         }
 
         public async Task<Result> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
@@ -37,7 +38,6 @@ namespace GoodReads.Application.Commands.UpdateBook
             }
 
             // Validation
-
             book.Update(request.Description, request.Genre);
             await _unitOfWork.CompleteAsync();
 
