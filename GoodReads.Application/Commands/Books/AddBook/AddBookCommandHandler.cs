@@ -1,7 +1,7 @@
 ﻿using GoodReads.Core.Services;
 using MediatR;
 
-namespace GoodReads.Application.Commands.Book.AddBook
+namespace GoodReads.Application.Commands.Books.AddBook
 {
     public class AddBookCommandHandler : IRequestHandler<AddBookCommand, Result>
     {

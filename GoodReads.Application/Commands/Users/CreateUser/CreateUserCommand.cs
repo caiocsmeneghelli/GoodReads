@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Application.Commands.User.CreateUser
+namespace GoodReads.Application.Commands.Users.CreateUser
 {
     public class CreateUserCommand : IRequest<Result>
     {

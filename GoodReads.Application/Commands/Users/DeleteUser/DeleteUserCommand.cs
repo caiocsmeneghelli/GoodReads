@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Application.Commands.User.DeleteUser
+namespace GoodReads.Application.Commands.Users.DeleteUser
 {
     public class DeleteUserCommand : IRequest<Result>
     {

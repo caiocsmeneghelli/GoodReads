@@ -3,7 +3,7 @@ using GoodReads.Core.Entities;
 using GoodReads.Core.UnitOfWork;
 using MediatR;
 
-namespace GoodReads.Application.Commands.User.CreateUser
+namespace GoodReads.Application.Commands.Users.CreateUser
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Result>
     {
@@ -26,8 +26,7 @@ namespace GoodReads.Application.Commands.User.CreateUser
                     .Select(reg => reg.ErrorMessage).ToList());
             }
 
-            // FIX: Namespaces
-            GoodReads.Core.Entities.User user = new GoodReads.Core.Entities.User(request.Name, request.Email);
+            User user = new User(request.Name, request.Email);
 
             await _unitOfWork.Users.CreateAsync(user);
             await _unitOfWork.CommitAsync();

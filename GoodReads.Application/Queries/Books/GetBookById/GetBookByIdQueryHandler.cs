@@ -1,13 +1,8 @@
 ﻿using GoodReads.Core.Entities;
 using GoodReads.Core.UnitOfWork;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GoodReads.Application.Queries.GetBookById
+namespace GoodReads.Application.Queries.Books.GetBookById
 {
     public class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, Book?>
     {

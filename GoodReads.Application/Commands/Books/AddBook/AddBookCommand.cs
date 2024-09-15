@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Application.Commands.Book.AddBook
+namespace GoodReads.Application.Commands.Books.AddBook
 {
     public class AddBookCommand : IRequest<Result>
     {
