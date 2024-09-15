@@ -15,7 +15,7 @@ namespace GoodReads.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task Delete(int id)
+        public Task Delete(User user)
         {
             throw new NotImplementedException();
         }

@@ -12,6 +12,6 @@ namespace GoodReads.Core.Repositories
         Task<User?> GetByIdAsync(int id);
         Task<IEnumerable<User>> GetAllAsync();
         Task<int> CreateAsync(User user);
-        Task Delete(int id);
+        Task Delete(User user);
     }
 }
