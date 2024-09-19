@@ -10,6 +10,11 @@ namespace GoodReads.Application.Queries.Users.GetUserById
 {
     public class GetUserByIdQuery : IRequest<Result>
     {
+        public GetUserByIdQuery(int idUser)
+        {
+            IdUser = idUser;
+        }
+
         public int IdUser { get; set; }
     }
 }
