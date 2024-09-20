@@ -1,4 +1,5 @@
 ﻿using GoodReads.Application.Commands.Users.CreateUser;
+using GoodReads.Application.Commands.Users.DeleteUser;
 using GoodReads.Application.Commands.Users.UpdateUser;
 using GoodReads.Application.Queries.Users.GetUserById;
 using MediatR;
@@ -56,6 +57,16 @@ namespace GoodReads.Api.Controllers
                     return NotFound(result);
                 }
             }
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var command = new DeleteUserCommand(id);
+            var result = await _mediator.Send(command);
+            if (!result.IsSuccess) { return NotFound(result); }
 
             return Ok(result);
         }
