@@ -10,14 +10,17 @@ namespace GoodReads.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(IBookRepository books, IUserRepository users)
+        public UnitOfWork(IBookRepository books, IUserRepository users, 
+            IReviewRepository reviews)
         {
             Books = books;
             Users = users;
+            Reviews = reviews;
         }
 
         public IBookRepository Books { get; }
         public IUserRepository Users { get; }
+        public IReviewRepository Reviews { get; }
 
         public Task BeginTransaction()
         {

@@ -11,6 +11,7 @@ namespace GoodReads.Core.UnitOfWork
     {
         IBookRepository Books { get; }
         IUserRepository Users { get; }
+        IReviewRepository Reviews { get; }
 
 
         Task<int> CompleteAsync();

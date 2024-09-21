@@ -30,6 +30,7 @@ namespace GoodReads.Core.Entities
         public int QuantityOfPages { get; private set; }
         public decimal AvarageScore { get; private set; }
         public byte[]? BookCover { get; private set; }
+        public List<Review> Reviews { get; private set; }
 
         public void Update(string description, Genre genre)
         {
