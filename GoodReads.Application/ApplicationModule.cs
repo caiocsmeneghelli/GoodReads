@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GoodReads.Application.Commands.Book.AddBook;
+using GoodReads.Application.Commands.Books.AddBook;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GoodReads.Application
