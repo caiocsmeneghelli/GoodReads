@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Infrastructure
+namespace GoodReads.Infrastructure.Persistence.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(IBookRepository books, IUserRepository users, 
+        public UnitOfWork(IBookRepository books, IUserRepository users,
             IReviewRepository reviews)
         {
             Books = books;

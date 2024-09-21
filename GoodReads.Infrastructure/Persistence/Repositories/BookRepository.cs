@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Infrastructure.Repositories
+namespace GoodReads.Infrastructure.Persistence.Repositories
 {
     public class BookRepository : IBookRepository
     {
@@ -35,7 +35,7 @@ namespace GoodReads.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Book?> GetByIdAsync(int id)
+        public Task<Book> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

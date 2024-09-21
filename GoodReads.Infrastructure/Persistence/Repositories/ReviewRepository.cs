@@ -6,26 +6,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Infrastructure.Repositories
+namespace GoodReads.Infrastructure.Persistence.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class ReviewRepository : IReviewRepository
     {
-        public Task<int> CreateAsync(User user)
+        public Task<int> CreateAsync(Review review)
         {
             throw new NotImplementedException();
         }
 
-        public Task Delete(User user)
+        public Task DeleteAsync(Review review)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<User>> GetAllAsync()
+        public Task<List<Review>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<User?> GetByIdAsync(int id)
+        public Task<Review> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

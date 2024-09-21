@@ -1,7 +1,8 @@
 ﻿using GoodReads.Core.Repositories;
 using GoodReads.Core.Services;
 using GoodReads.Core.UnitOfWork;
-using GoodReads.Infrastructure.Repositories;
+using GoodReads.Infrastructure.Persistence.Repositories;
+using GoodReads.Infrastructure.Persistence.UnitOfWork;
 using GoodReads.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
