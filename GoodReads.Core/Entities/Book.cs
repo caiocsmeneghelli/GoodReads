@@ -42,5 +42,13 @@ namespace GoodReads.Core.Entities
         {
            BookCover = bookCover;
         }
+
+        public void UpdateAvarageScore(int score)
+        {
+            int countReviews = Reviews.Count;
+            int sumAllScores = Reviews.Sum(r => r.Score);
+
+            AvarageScore = (sumAllScores + score) / countReviews + 1;
+        }
     }
 }

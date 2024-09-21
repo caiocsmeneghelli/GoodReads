@@ -1,4 +1,5 @@
-﻿using GoodReads.Application.Queries.Review.GetReviewById;
+﻿using GoodReads.Application.Commands.Reviews.CreateReview;
+using GoodReads.Application.Queries.Review.GetReviewById;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,15 @@ namespace GoodReads.Api.Controllers
             
             if(result is null) { return NotFound(); }
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateReviewCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (!result.IsSuccess) { return BadRequest(result); }
+
+            return CreatedAtAction(nameof(Get), command, result);
         }
     }
 }
