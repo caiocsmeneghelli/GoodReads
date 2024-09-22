@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodReads.Application.Queries.Review.GetReviewById
+namespace GoodReads.Application.Queries.Reviews.GetReviewById
 {
     public class GetReviewByIdQuery : IRequest<ReviewViewModel?>
     {

@@ -1,7 +1,6 @@
 ﻿using GoodReads.Application.Commands.Reviews.CreateReview;
-using GoodReads.Application.Queries.Review.GetReviewById;
+using GoodReads.Application.Queries.Reviews.GetReviewById;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoodReads.Api.Controllers

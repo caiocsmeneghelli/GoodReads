@@ -1,7 +1,7 @@
-﻿using GoodReads.Application.Commands.Book.DeleteBook;
-using GoodReads.Application.Commands.Book.UpdateBook;
-using GoodReads.Application.Queries.GetAllBooks;
-using GoodReads.Application.Queries.GetBookById;
+﻿using GoodReads.Application.Commands.Books.DeleteBook;
+using GoodReads.Application.Commands.Books.UpdateBook;
+using GoodReads.Application.Queries.Books.GetAllBooks;
+using GoodReads.Application.Queries.Books.GetBookById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

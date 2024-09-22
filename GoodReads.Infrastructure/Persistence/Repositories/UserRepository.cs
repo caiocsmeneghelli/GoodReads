@@ -25,6 +25,11 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<User> GetByEmailAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<User> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
