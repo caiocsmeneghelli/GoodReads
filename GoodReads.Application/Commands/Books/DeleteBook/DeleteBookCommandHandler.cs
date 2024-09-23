@@ -22,7 +22,7 @@ namespace GoodReads.Application.Commands.Books.DeleteBook
             var book = await _unitOfWork.Books.GetByIdAsync(request.IdBook);
             if (book == null) { return Result.NotFound("Livro não encontrado."); }
 
-            await _unitOfWork.Books.Delete(request.IdBook);
+            _unitOfWork.Books.Delete(book);
             await _unitOfWork.CommitAsync();
 
             return Result.Success(request.IdBook);

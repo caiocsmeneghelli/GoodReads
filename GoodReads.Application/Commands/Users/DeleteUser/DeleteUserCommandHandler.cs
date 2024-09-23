@@ -22,7 +22,7 @@ namespace GoodReads.Application.Commands.Users.DeleteUser
             var user = await _unitOfWork.Users.GetByIdAsync(request.IdUser);
             if (user == null) { return Result.NotFound($"Usuário de ID {request.IdUser} não foi encontrado."); }
 
-            await _unitOfWork.Users.Delete(user);
+            _unitOfWork.Users.Delete(user);
             await _unitOfWork.CommitAsync();
 
             return Result.Success(request.IdUser);

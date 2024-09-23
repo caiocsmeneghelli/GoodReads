@@ -18,7 +18,7 @@ namespace GoodReads.Infrastructure.Persistence.Configuration
             builder.HasMany(b => b.Reviews)
                 .WithOne(r => r.Book)
                 .HasForeignKey(b => b.IdBook)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

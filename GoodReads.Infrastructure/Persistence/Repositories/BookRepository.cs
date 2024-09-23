@@ -1,5 +1,7 @@
 ﻿using GoodReads.Core.Entities;
+using GoodReads.Core.Enum;
 using GoodReads.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,34 +12,47 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        public Task<int> CreateAsync(Book book)
+        private readonly GoodReadsContext _context;
+
+        public BookRepository(GoodReadsContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task Delete(int id)
+        public async Task<int> CreateAsync(Book book)
         {
-            throw new NotImplementedException();
+            await _context.Books.AddAsync(book);
+            return book.Id;
         }
 
-        public Task<IEnumerable<Book>> GetAllAsync()
+        public void Delete(Book book)
         {
-            throw new NotImplementedException();
+            _context.Books.Remove(book);
         }
 
-        public Task<IEnumerable<Book>> GetAllAsync(string param)
+        public async Task<IEnumerable<Book>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Books.ToListAsync();
         }
 
-        public Task<IEnumerable<Book>> GetAllByGenreAsync()
+        public async Task<IEnumerable<Book>> GetAllAsync(string param)
         {
-            throw new NotImplementedException();
+            return await _context.Books
+                .Where(b => param.ToLower().Contains(b.Title.ToLower()))
+                .ToListAsync();
         }
 
-        public Task<Book> GetByIdAsync(int id)
+        public async Task<IEnumerable<Book>> GetAllByGenreAsync(Genre genre)
         {
-            throw new NotImplementedException();
+            return await _context.Books
+                .Where(b => b.Genre == genre)
+                .ToListAsync();
+        }
+
+        public Task<Book?> GetByIdAsync(int id)
+        {
+            return _context.Books
+                .SingleOrDefaultAsync(b => b.Id == id);
         }
 
         public Task UpdateAsync(Book book)

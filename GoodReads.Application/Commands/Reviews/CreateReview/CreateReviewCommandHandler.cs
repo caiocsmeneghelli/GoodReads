@@ -13,10 +13,10 @@ namespace GoodReads.Application.Commands.Reviews.CreateReview
     public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, Result>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly AbstractValidator<CreateReviewCommand> _validator;
+        private readonly IValidator<CreateReviewCommand> _validator;
 
         public CreateReviewCommandHandler(IUnitOfWork unitOfWork, 
-            AbstractValidator<CreateReviewCommand> validator)
+            IValidator<CreateReviewCommand> validator)
         {
             _unitOfWork = unitOfWork;
             _validator = validator;

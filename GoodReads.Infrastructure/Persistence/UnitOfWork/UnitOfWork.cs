@@ -1,5 +1,6 @@
 ﻿using GoodReads.Core.Repositories;
 using GoodReads.Core.UnitOfWork;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,31 +11,56 @@ namespace GoodReads.Infrastructure.Persistence.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private readonly GoodReadsContext _context;
+        private IDbContextTransaction _transaction;
         public UnitOfWork(IBookRepository books, IUserRepository users,
-            IReviewRepository reviews)
+            IReviewRepository reviews, GoodReadsContext context)
         {
             Books = books;
             Users = users;
             Reviews = reviews;
+            _context = context;
         }
 
         public IBookRepository Books { get; }
         public IUserRepository Users { get; }
         public IReviewRepository Reviews { get; }
 
-        public Task BeginTransaction()
+        public async Task BeginTransaction()
         {
-            throw new NotImplementedException();
+            _transaction = await _context.Database.BeginTransactionAsync();
         }
 
-        public Task CommitAsync()
+        public async Task CommitAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _transaction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                await _transaction.RollbackAsync();
+                throw ex;
+            }
         }
 
-        public Task<int> CompleteAsync()
+        public async Task<int> CompleteAsync()
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
         }
     }
 }

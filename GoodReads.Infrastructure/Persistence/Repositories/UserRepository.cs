@@ -1,5 +1,6 @@
 ﻿using GoodReads.Core.Entities;
 using GoodReads.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,38 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public Task<int> CreateAsync(User user)
+        private readonly GoodReadsContext _context;
+
+        public UserRepository(GoodReadsContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task Delete(User user)
+        public async Task<int> CreateAsync(User user)
         {
-            throw new NotImplementedException();
+            await _context.Users.AddAsync(user);
+            return user.Id;
         }
 
-        public Task<IEnumerable<User>> GetAllAsync()
+        public void Delete(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Remove(user);
         }
 
-        public Task<User> GetByEmailAsync(string email)
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Users.ToListAsync();
         }
 
-        public Task<User> GetByIdAsync(int id)
+        public async Task<User?> GetByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Users
+                .SingleOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<User?> GetByIdAsync(int id)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
         }
     }
 }
