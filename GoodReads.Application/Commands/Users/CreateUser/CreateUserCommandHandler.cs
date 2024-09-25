@@ -41,9 +41,9 @@ namespace GoodReads.Application.Commands.Users.CreateUser
             User user = new User(request.Name, request.Email);
 
             await _unitOfWork.Users.CreateAsync(user);
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.CompleteAsync();
 
-            return Result.Success(request);
+            return Result.Success(user.Id);
         }
     }
 }

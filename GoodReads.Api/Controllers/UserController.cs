@@ -38,7 +38,8 @@ namespace GoodReads.Api.Controllers
             var result = await _mediator.Send(command);
             if (!result.IsSuccess) { return BadRequest(result); }
 
-            return CreatedAtAction(nameof(GetById), command, result);
+            //return CreatedAtAction(nameof(GetById), command, result.Value);
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
