@@ -1,5 +1,6 @@
 ﻿using GoodReads.Core.Entities;
 using GoodReads.Core.Repositories;
+using GoodReads.Core.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,17 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
 {
     public class ReviewRepository : IReviewRepository
     {
-        public Task<int> CreateAsync(Review review)
+        private readonly GoodReadsContext _context;
+
+        public ReviewRepository(GoodReadsContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task<int> CreateAsync(Review review)
+        {
+            await _context.Reviews.AddAsync(review);
+            return review.Id;
         }
 
         public Task DeleteAsync(Review review)

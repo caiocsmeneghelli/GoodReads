@@ -1,4 +1,5 @@
 ﻿using GoodReads.Core.Services;
+using GoodReads.Core.UnitOfWork;
 using MediatR;
 
 namespace GoodReads.Application.Commands.Books.AddBook
@@ -6,10 +7,12 @@ namespace GoodReads.Application.Commands.Books.AddBook
     public class AddBookCommandHandler : IRequestHandler<AddBookCommand, Result>
     {
         private readonly IBookService _bookService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AddBookCommandHandler(IBookService bookService)
+        public AddBookCommandHandler(IBookService bookService, IUnitOfWork unitOfWork)
         {
             _bookService = bookService;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Result> Handle(AddBookCommand request, CancellationToken cancellationToken)
@@ -31,6 +34,8 @@ namespace GoodReads.Application.Commands.Books.AddBook
             }
 
             // Save book.
+            await _unitOfWork.Books.CreateAsync(book);
+            await _unitOfWork.CompleteAsync();
 
             return Result.Success(bookInfo);
         }

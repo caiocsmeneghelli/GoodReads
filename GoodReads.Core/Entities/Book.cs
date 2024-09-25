@@ -18,6 +18,8 @@ namespace GoodReads.Core.Entities
             Editor = editor;
             YearOfPublish = yearOfPublish;
             QuantityOfPages = quantityOfPages;
+
+            Description = string.Empty;
         }
 
         public string Title { get; private set; }

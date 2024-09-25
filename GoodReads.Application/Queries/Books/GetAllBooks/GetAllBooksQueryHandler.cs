@@ -12,6 +12,12 @@ namespace GoodReads.Application.Queries.Books.GetAllBooks
     public class GetAllBooksQueryHandler : IRequestHandler<GetAllBooksQuery, List<BookViewModel>>
     {
         private readonly IUnitOfWork _unitOfWork;
+
+        public GetAllBooksQueryHandler(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public async Task<List<BookViewModel>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
             var result = await _unitOfWork.Books.GetAllAsync();
