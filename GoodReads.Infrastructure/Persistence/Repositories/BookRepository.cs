@@ -32,7 +32,10 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
 
         public async Task<IEnumerable<Book>> GetAllAsync()
         {
-            return await _context.Books.ToListAsync();
+            return await _context.Books
+                .Include(b => b.Reviews)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Book>> GetAllAsync(string param)
@@ -46,18 +49,20 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
         {
             return await _context.Books
                 .Where(b => b.Genre == genre)
+                .Include(reg => reg.Reviews)
                 .ToListAsync();
         }
 
         public Task<Book?> GetByIdAsync(int id)
         {
             return _context.Books
+                .Include(b => b.Reviews)
                 .SingleOrDefaultAsync(b => b.Id == id);
         }
 
-        public Task UpdateAsync(Book book)
+        public async Task UpdateAsync(Book book)
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
     }
 }
