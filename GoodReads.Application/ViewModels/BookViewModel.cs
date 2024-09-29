@@ -10,21 +10,6 @@ namespace GoodReads.Application.ViewModels
 {
     public class BookViewModel
     {
-        public BookViewModel(Book model)
-        {
-            IdBook = model.Id;
-            Title = model.Title;
-            Description = model.Description;
-            ISBN = model.ISBN;
-            Author = model.Author;
-            Editor = model.Editor;
-            Genre = model.Genre;
-            YearOfPublish = model.YearOfPublish;
-            QuantityOfPages = model.QuantityOfPages;
-            AvarageScore = model.AvarageScore;
-            BookCover = model.BookCover;
-        }
-
         public int IdBook { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; }

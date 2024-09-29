@@ -1,4 +1,6 @@
-﻿using GoodReads.Application.ViewModels;
+﻿using AutoMapper;
+using GoodReads.Application.ViewModels;
+using GoodReads.Core.Entities;
 using GoodReads.Core.UnitOfWork;
 using MediatR;
 using System;
@@ -12,16 +14,19 @@ namespace GoodReads.Application.Queries.Books.GetAllBooks
     public class GetAllBooksQueryHandler : IRequestHandler<GetAllBooksQuery, List<BookViewModel>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public GetAllBooksQueryHandler(IUnitOfWork unitOfWork)
+        public GetAllBooksQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<List<BookViewModel>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
             var result = await _unitOfWork.Books.GetAllAsync();
-            return result.Select(reg => new BookViewModel(reg)).ToList();
+            List<BookViewModel> list = _mapper.Map<IEnumerable<Book>, List<BookViewModel>>(result);
+            return list;
         }
     }
 }

@@ -33,7 +33,6 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
         public async Task<IEnumerable<Book>> GetAllAsync()
         {
             return await _context.Books
-                .Include(b => b.Reviews)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -42,6 +41,7 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
         {
             return await _context.Books
                 .Where(b => param.ToLower().Contains(b.Title.ToLower()))
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -49,7 +49,7 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
         {
             return await _context.Books
                 .Where(b => b.Genre == genre)
-                .Include(reg => reg.Reviews)
+                .AsNoTracking()
                 .ToListAsync();
         }
 

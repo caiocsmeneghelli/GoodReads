@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GoodReads.Application.Commands.Books.AddBook;
+using GoodReads.Application.Mapper;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GoodReads.Application
@@ -10,6 +11,7 @@ namespace GoodReads.Application
         {
             services
                 .AddMediator()
+                .AddAutoMapper()
                 .AddValidation();
             return services;
         }
@@ -21,6 +23,12 @@ namespace GoodReads.Application
 
         private static IServiceCollection AddValidation(this IServiceCollection service) { 
             service.AddValidatorsFromAssemblyContaining<AddBookCommandValidator>();
+            return service;
+        }
+
+        private static IServiceCollection AddAutoMapper(this IServiceCollection service)
+        {
+            service.AddAutoMapper(typeof(BookProfile));
             return service;
         }
     }
