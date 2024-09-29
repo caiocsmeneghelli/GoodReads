@@ -9,7 +9,7 @@ namespace GoodReads.Core.Entities
 {
     public class Book : BaseEntity
     {
-        public Book(string title, string iSBN, string author, string editor, 
+        public Book(string title, string iSBN, string author, string editor,
             int yearOfPublish, int quantityOfPages)
         {
             Title = title;
@@ -42,15 +42,15 @@ namespace GoodReads.Core.Entities
 
         public void UpdateBookCover(byte[] bookCover)
         {
-           BookCover = bookCover;
+            BookCover = bookCover;
         }
 
         public void UpdateAvarageScore(int score)
         {
-            int countReviews = Reviews.Count;
-            int sumAllScores = Reviews.Sum(r => r.Score);
+            int countReviews = Reviews.Count + 1;
+            int sumAllScores = Reviews.Sum(r => r.Score) + score;
 
-            AvarageScore = (sumAllScores + score) / countReviews + 1;
+            AvarageScore = sumAllScores / countReviews;
         }
     }
 }

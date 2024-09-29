@@ -41,6 +41,7 @@ namespace GoodReads.Infrastructure.Services
 
                     string isbnObject = $"ISBN:{ISBN}";
                     var bookDetails = json[isbnObject]?["details"];
+                    string? thumbnail = json[isbnObject]?["thumbnail_url"].ToString();
 
                     dto.ISBN = ISBN;
                     dto.Title = bookDetails?["title"]?.ToString();
@@ -69,7 +70,7 @@ namespace GoodReads.Infrastructure.Services
                     var qtPages = bookDetails?["number_of_pages"];
                     dto.QuantityOfPages = qtPages != null ? (int)qtPages : 0;
 
-                    dto.ThumbnailUrl = bookDetails?["thumbnail_url"]?.ToString();
+                    dto.ThumbnailUrl = thumbnail;
 
                     return dto;
                 }
