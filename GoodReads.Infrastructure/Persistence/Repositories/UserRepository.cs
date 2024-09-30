@@ -42,7 +42,10 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
 
         public async Task<User?> GetByIdAsync(int id)
         {
-            return await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
+            return await _context.Users
+                .Include(reg => reg.Reviews)
+                .ThenInclude(reg => reg.Book)
+                .SingleOrDefaultAsync(u => u.Id == id);
         }
     }
 }

@@ -15,7 +15,8 @@ namespace GoodReads.Application.Mapper
         public BookProfile()
         {
             CreateMap<Book, BookViewModel>()
-                .ForMember(dest => dest.IdBook, opt => opt.MapFrom(src => src.Id));
+                .ForMember(dest => dest.IdBook, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.ToString()));
         }
     }
 }

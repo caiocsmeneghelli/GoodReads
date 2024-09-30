@@ -16,7 +16,7 @@ namespace GoodReads.Application.ViewModels
         public string ISBN { get; private set; }
         public string Author { get; private set; }
         public string Editor { get; private set; }
-        public Genre Genre { get; private set; }
+        public string Genre { get; private set; }
         public int YearOfPublish { get; private set; }
         public int QuantityOfPages { get; private set; }
         public decimal AvarageScore { get; private set; }
