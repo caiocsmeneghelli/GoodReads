@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace GoodReads.Application.Mapper
 {
-    public class UserReviewProfile : Profile
+    public class BookReviewProfile : Profile
     {
-        public UserReviewProfile()
+        public BookReviewProfile()
         {
-            CreateMap<User, UserReviewViewModel>();
+            CreateMap<Book, BookReviewViewModel>();
         }
     }
 }

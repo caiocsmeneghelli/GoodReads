@@ -1,9 +1,10 @@
-﻿using GoodReads.Core.Entities;
+﻿using GoodReads.Application.ViewModels;
+using GoodReads.Core.Entities;
 using MediatR;
 
 namespace GoodReads.Application.Queries.Books.GetBookById
 {
-    public class GetBookByIdQuery : IRequest<Book?>
+    public class GetBookByIdQuery : IRequest<BookViewModel?>
     {
         public GetBookByIdQuery(int idBook)
         {

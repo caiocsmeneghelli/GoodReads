@@ -45,18 +45,19 @@ namespace GoodReads.Infrastructure.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Book>> GetAllByGenreAsync(Genre genre)
-        {
-            return await _context.Books
-                .Where(b => b.Genre == genre)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-
         public Task<Book?> GetByIdAsync(int id)
         {
             return _context.Books
                 .Include(b => b.Reviews)
+                .SingleOrDefaultAsync(b => b.Id == id);
+        }
+
+        public Task<Book> GetByIdDetailsAsync(int id)
+        {
+            return _context.Books
+                .Include(b => b.Reviews)
+                .ThenInclude(r => r.User)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(b => b.Id == id);
         }
 

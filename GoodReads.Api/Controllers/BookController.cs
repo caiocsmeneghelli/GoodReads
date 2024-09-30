@@ -3,6 +3,7 @@ using GoodReads.Application.Commands.Books.DeleteBook;
 using GoodReads.Application.Commands.Books.UpdateBook;
 using GoodReads.Application.Queries.Books.GetAllBooks;
 using GoodReads.Application.Queries.Books.GetBookById;
+using GoodReads.Application.Queries.Books.GetBookDetailsById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -31,6 +32,16 @@ namespace GoodReads.Api.Controllers
         public async Task<IActionResult> GetById(int idBook)
         {
             var query = new GetBookByIdQuery(idBook);
+            var book = await _mediator.Send(query);
+            if (book == null) { return NotFound(); }
+
+            return Ok(book);
+        }
+
+        [HttpGet("{idBook}/details")]
+        public async Task<IActionResult> GetDetailsById(int idBook)
+        {
+            var query = new GetBookDetailsByIdQuery(idBook);
             var book = await _mediator.Send(query);
             if (book == null) { return NotFound(); }
 
